@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * @package					Publish Improve for EE2
+ * @package					Publish Bar for EE2
  * @author					Ryan J. Bonnell
  * @copyright				Copyright (c) 2011 Ryan J. Bonnell
  * @link					https://github.com/ryanjbonnell/publish_bar.ee_addon/
