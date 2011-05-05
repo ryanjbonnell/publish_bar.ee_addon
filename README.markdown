@@ -29,7 +29,7 @@ As you scroll down the page, Publish Bar appears on the screen pinned to the bot
 
 Within Publish Bar is a 'Submit Button' and a 'Back to Top' link, allowing you to conveniently submit changes or go to the top of the page witih ease. If autosave is enabled in ExpressionEngine, Publish Bar will display the autosave notification in style.
 
-Hard-core keyboard users will appreciate the accesskey, "S", added to the Submit button -- saving even more time by keeping your fingers on the keyboard. For accesskey usage in your browser, see:
+Hard-core keyboard users will appreciate the accesskey, "s", added to the Submit button -- saving even more time by keeping your fingers on the keyboard. For accesskey usage in your browser, see:
 
-Web Browser Accesskey Usage:
+Web Browser Accesskey Usage:  
 http://en.wikipedia.org/wiki/Access_key
