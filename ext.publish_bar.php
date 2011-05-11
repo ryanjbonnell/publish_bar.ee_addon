@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * @package					Publish Bar for EE2
+ * @package					Publish Improve for EE2
  * @author					Ryan J. Bonnell
  * @copyright				Copyright (c) 2011 Ryan J. Bonnell
  * @link					https://github.com/ryanjbonnell/publish_bar.ee_addon/
@@ -10,7 +10,7 @@
 class Publish_bar_ext {
 	public $settings		= array();
 	public $name			= 'Publish Bar';
-	public $version			= '1.0';
+	public $version			= '1.0.1';
 	public $description		= 'Streamlines publishing by adding a subtle overlay bar at the bottom of the ExpressionEngine entry editing screen.';
 	public $settings_exist	= 'n';
 	public $docs_url		= 'https://github.com/ryanjbonnell/publish_bar.ee_addon';
@@ -71,8 +71,30 @@ class Publish_bar_ext {
 				margin-bottom: 50px;
 			}
 
-			#publish-bar {
-				background: #333 none;
+			#mainContent #publishForm {
+				position: relative;
+				padding-top: 31px;
+			}
+
+			#publish-bar-top {
+				color: #5f6c74;
+				height: 30px;
+				line-height: 38px;
+				position: absolute;
+				right: 0;
+				text-align: right;
+				top: 0;
+				width: 100%;
+			}
+
+			#publish-bar-top li,
+			#publish-bar-bottom li {
+				display: inline;
+				margin-right: 10px;
+			}
+
+			#publish-bar-bottom {
+				background: #111 none;
 				background: rgba(0,0,0, 0.85) none;
 				color: #666;
 				display: none;
@@ -85,18 +107,15 @@ class Publish_bar_ext {
 				z-index: 100;
 			}
 
-			#publish-bar li {
-				display: inline;
-				margin-right: 10px;
-			}
-
-			#publish-bar #back-to-top {
+			#publish-bar-bottom #back-to-top {
 				margin-left: -6px;
 			}
 
-			#publish-bar li a {
+			#publish-bar-bottom li a {
 				color: #fff;
+				outline: none;
 				padding: 3px 6px;
+
 			}
 		';
 
@@ -116,11 +135,16 @@ class Publish_bar_ext {
 
 		$javascript .= "
 			$('body').prepend('<ins id=\"top\"></ins>');
-			$('#publish_submit_buttons').clone().attr('id', 'publish-bar').insertBefore('#tab_menu_tabs');
-			$('#publish-bar #submit_button').attr('accesskey', 's');
-			$('#publish-bar #autosave_notice').attr('id', 'autosave-notice').removeAttr('style');
-			$('#publish-bar').append('<li id=\"back-to-top\"><a href=\"#top\">Back to Top</a></li>');
-			$('#publish-bar #back-to-top a').click(function (event) {
+			$('#publish_submit_buttons').clone().attr('id', 'publish-bar-bottom').insertBefore('#tab_menu_tabs');
+			$('#publish_submit_buttons').clone().attr('id', 'publish-bar-top').insertBefore('#tab_menu_tabs');
+
+			$('#publish-bar-top #autosave_notice').removeAttr('id').addClass('autosave-notice').removeAttr('style');
+			$('#publish-bar-bottom #autosave_notice').removeAttr('id').addClass('autosave-notice').removeAttr('style');
+
+			$('#publish-bar-bottom #submit_button').attr('accesskey', 's');
+
+			$('#publish-bar-bottom').append('<li id=\"back-to-top\"><a href=\"#top\">Back to Top</a></li>');
+			$('#publish-bar-bottom #back-to-top a').click(function (event) {
 				event.preventDefault();
 				$('html, body').animate({
 					scrollTop: ''
@@ -128,13 +152,13 @@ class Publish_bar_ext {
 			});
 
 			$(window).scroll(function () {
-				if ($(window).scrollTop() >= 107) {
-					$('#publish-bar').css({
+				if ($(window).scrollTop() >= 83) {
+					$('#publish-bar-bottom').css({
 						display: 'block',
 						position: 'fixed'
 					});
 				} else {
-					$('#publish-bar').css({
+					$('#publish-bar-bottom').css({
 						display: 'none'
 					});
 				}
@@ -147,7 +171,7 @@ class Publish_bar_ext {
 			$javascript .= "
 				function refreshAutoSave() {
 					var autoSaveText = $('#autosave_notice').text();
-					$('#autosave-notice').text(autoSaveText);
+					$('.autosave-notice').text(autoSaveText);
 				}
 				setInterval(refreshAutoSave, $autosave_interval);
 			";
